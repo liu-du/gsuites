@@ -11,7 +11,6 @@ def test_gmail_search(creds):
   msgs = list(gmail.search(q))
   assert len(msgs) == 1
 
-
   q = 'label:unittest'
   msgs = list(gmail.search(q))
   assert len(msgs) == 2
@@ -20,6 +19,5 @@ def test_gmail_search(creds):
       msg_ids, format='metadata', metadataHeaders=['Subject'])
   m1 = messages[1]
   assert len(messages) == 2
-  assert u'unittest 你好，哈哈！' ==  m1['payload']['headers'][0]['value']
+  assert u'unittest 你好，哈哈！' == m1['payload']['headers'][0]['value']
   assert u'Too young too naïve' in m1['snippet']
-

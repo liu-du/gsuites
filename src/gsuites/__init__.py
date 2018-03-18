@@ -17,6 +17,7 @@ DRIVE_API_VERSION = 'v3'
 def credentials_from_json(json_str):
   return OAuth2Credentials.from_json(json_str)
 
+
 class Drive(object):
   def __init__(self, credential):
     http = credential.authorize(httplib2.Http())
@@ -44,10 +45,10 @@ class Drive(object):
 
   def _make_dir(self, name, parent_id='root'):
     q_tpl = (
-      "mimeType='application/vnd.google-apps.folder' "
-      "and trashed = false"
-      "and name = '{name}' "
-      "and '{parent}' in parents "
+        "mimeType='application/vnd.google-apps.folder' "
+        "and trashed = false"
+        "and name = '{name}' "
+        "and '{parent}' in parents "
     )
 
     q = q_tpl.format(name=name, parent=parent_id)
@@ -196,6 +197,10 @@ class Calendar(object):
   def add_event(self, calendarId, event):
     return self.service.events().insert(
         calendarId=calendarId, body=event).execute()
+
+  def update_event(self, calendarId, eventId, event):
+    return self.service.events().update(
+        calendarId=calendarId, eventId=eventId, body=event).execute()
 
   def del_event(self, calendarId, eventId):
     return self.service.events().delete(
